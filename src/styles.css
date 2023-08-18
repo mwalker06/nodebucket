@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+/* Title: styles
+Author: Megan Walker
+Date: 08-16-2023
+Description:''
+Source: Professor Krasso, Angular.io */
+
+.text-underline-hover:hover {
+  text-decoration: none;
+}
+
+.text-underline-hover:hover {
+  text-decoration: underline;
+}
+
+.full-height {
+  height: 100vh !important;
+}
+.link:hover {
+  cursor: pointer;
+}
+
+/* mobile */
+
+@media (max-width: 576px) {
+  .dropdown-menu {
+    background-color: #212529 !important;
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  .dropdown-item {
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+
+  .dropdown-item:hover {
+    cursor: pointer;
+  }
+
+  .material-icons {
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+}

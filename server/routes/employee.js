@@ -2,7 +2,7 @@
 Author: Megan Walker
 Date: 08-14-2023
 Description: employee API
-Source: Professor Krasso, Angular.io */
+Source: Professor Krasso */
 
 'use strict'
 
