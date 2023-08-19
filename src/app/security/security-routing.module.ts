@@ -10,6 +10,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SecurityComponent } from './security.component';
 import { SigninComponent } from './signin/signin.component';
 
+
+// routes for the security module
 const routes: Routes = [
   {
     path: '',
@@ -24,8 +26,11 @@ const routes: Routes = [
   }
 ];
 
+// exports the SecurityRoutingModule
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
+
+// exports the SecurityRoutingModule
 export class SecurityRoutingModule { }

@@ -8,7 +8,7 @@ Source: Professor Krasso */
 
 const { MongoClient } = require("mongodb")
 
-const MOGODB_URL =
+const MONGO_URL =
   "mongodb+srv://nodebucket_user:s3cret@bellevueuniversity.1txnlsv.mongodb.net/?retryWrites=true&w=majority";
 
 const mongo = async (operations, next) => {

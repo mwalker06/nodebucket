@@ -16,18 +16,18 @@ Source: Professor Krasso, Angular.io -->
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ms-auto p-2">
             <li class="nav-item">
-                <a routeLink="/home" class="nav-link">Home</a>
+                <a routerLink="/home" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a routeLink="#" class="nav-link">About Us</a>
+                <a routerLink="#" class="nav-link">About Us</a>
             </li>
             <li class="nav-item">
-                <a routeLink="#" class="nav-link">Contact Us</a>
+                <a routerLink="#" class="nav-link">Contact Us</a>
             </li>
             <li *ngIf="!isSignedIn">
-                <a class="nav-link" routeLink="/security/signin">Sign In</a>
+                <a class="nav-link" routerLink="/security/signin">Sign In</a>
             </li>
-
+            
             <!--User Account-->
             <li *ngIf="isSignedIn" class="nav-item dropdown">
                 <a class="nav-link pe-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"

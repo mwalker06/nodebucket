@@ -16,6 +16,8 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
+
+// exports the SecurityComponent
 export class SecurityComponent {
 
 }

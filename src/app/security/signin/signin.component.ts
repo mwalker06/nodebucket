@@ -1,7 +1,7 @@
 /* Title: signin.component
 Author: Megan Walker
 Date: 08-16-2023
-Description:''
+Description: signin.component.ts
 Source: Professor Krasso, Angular.io */
 
 import { SecurityService } from '../security.service';
@@ -10,17 +10,21 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
+// SessionUser interface with empId, firstName, and lastName
 export interface SessionUser {
   empId: number;
   firstName: string;
   lastName: string;
 }
 
+// SigninComponent class with signinForm, errorMessage, sessionUser, and isLoading
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.css']
 })
+
+// SigninComponent class with signinForm, errorMessage, sessionUser, and isLoading
 export class SigninComponent {
   errorMessage: string
   sessionUser: SessionUser
@@ -30,11 +34,14 @@ export class SigninComponent {
     empId: [null, Validators.compose([Validators.required, Validators.pattern('^[0-9]*$')])]
   })
 
+  // SigninComponent constructor with fb, router, cookieService, secService, and route
   constructor(private fb: FormBuilder, private router: Router, private cookieService: CookieService, private secService: SecurityService, private route: ActivatedRoute) {
     this.sessionUser = {} as SessionUser
     this.errorMessage = ''
   }
 
+
+  // signin function with empId
   signin() {
     this.isLoading = true;
     const empId = this.signinForm.controls['empId'].value
@@ -44,7 +51,7 @@ export class SigninComponent {
       this.isLoading = false
       return
     }
-
+    // findEmployeeById function with empId
     this.secService.findEmployeeById(empId).subscribe({
       next: (employee: any) => {
         this.sessionUser = employee
@@ -56,6 +63,8 @@ export class SigninComponent {
 
         this.router.navigate([returnUrl])
       },
+
+      // error function with err
       error: (err) => {
         this.isLoading = false
 
@@ -63,7 +72,7 @@ export class SigninComponent {
           this.errorMessage = err.error.message
           return
         }
-
+        // error message
         this.errorMessage = err.message
       }
     })
