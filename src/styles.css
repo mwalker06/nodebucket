@@ -4,6 +4,41 @@ Date: 08-16-2023
 Description:''
 Source: Professor Krasso, Angular.io */
 
+:root {
+  --hufflepuff-yellow: #eeba35;
+  --hufflepuff-pale-yellow: #ffd25f;
+  --hufflepuff-ltbrown: #7d6b5d;
+  --hufflepuff-drkbrown: #372e29;
+  --hufflepuff-black: #000000;
+}
+
+
+.navbar {
+  background-color: var(--hufflepuff-black);
+}
+.hufflepuff-welcome {
+  color: var(--hufflepuff-yellow);
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
+    2px 2px 0 #000;
+    font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.hufflepuff-body {
+  background-color: var(--hufflepuff-ltbrown);
+}
+.hufflepuff-text {
+  color: var(--hufflepuff-yellow);
+  font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.btn-dark {
+  background-color: var(--hufflepuff-black);
+  color: var(--hufflepuff-yellow) !important;
+}
+.nav-link {
+  color: var(--hufflepuff-yellow) !important;
+}
+
 .text-underline-hover:hover {
   text-decoration: none;
 }
@@ -19,16 +54,16 @@ Source: Professor Krasso, Angular.io */
   cursor: pointer;
 }
 
-/* mobile */
+/* mobile  */
 
 @media (max-width: 576px) {
   .dropdown-menu {
     background-color: #212529 !important;
-    color: rgba(255, 255, 255, 0.55) !important;
+    color: var(--hufflepuff-yellow) !important;
   }
 
   .dropdown-item {
-    color: rgba(255, 255, 255, 0.55) !important;
+    color: var(--hufflepuff-yellow) !important;
   }
 
   .dropdown-item:hover {
@@ -36,6 +71,6 @@ Source: Professor Krasso, Angular.io */
   }
 
   .material-icons {
-    color: rgba(255, 255, 255, 0.55) !important;
+    color: var(--hufflepuff-yellow) !important;
   }
 }
