@@ -1,8 +1,8 @@
-/**
- * Title: security.module.ts
- * Author: Professor Krasso
- * Date: 8/5/23
-*/
+/* Title: security.module
+Author: Megan Walker
+Date: 08-19-2023
+Description: security.module.ts
+Source: Professor Krasso, Angular.io */
 
 // imports statements
 import { CommonModule } from '@angular/common';

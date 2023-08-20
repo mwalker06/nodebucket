@@ -1,8 +1,8 @@
-/**
- * Title: security.component.ts
- * Author: Professor Krasso
- * Date: 8/5/23
- */
+/* Title: security.component
+Author: Megan Walker
+Date: 08-19-2023
+Description: security.component.ts
+Source: Professor Krasso, Angular.io */
 
 // imports statements
 import { Component } from '@angular/core';

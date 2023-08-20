@@ -1,3 +1,9 @@
+/* Title: auth.guard
+Author: Megan Walker
+Date: 08-19-2023
+Description: auth.guard.ts
+Source: Professor Krasso, Angular.io */
+
 // imports
 import { CanActivateFn, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';

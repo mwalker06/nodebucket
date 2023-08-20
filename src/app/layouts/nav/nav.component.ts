@@ -1,8 +1,8 @@
-/**
- * Title: nav.component.ts
- * Author: Professor Krasso
- * Date: 8/5/23
- */
+/* Title: nav.component
+Author: Megan Walker
+Date: 08-19-2023
+Description: nav.component.ts
+Source: Professor Krasso, Angular.io */
 
 // imports statements
 import { Component } from '@angular/core';
@@ -12,16 +12,22 @@ export interface AppUser {
   fullName: string;
 }
 
+// NavComponent class
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
+
+// exports the NavComponent class
 export class NavComponent {
   // appUser variable
   appUser: AppUser;
   isSignedIn: boolean;
 
+
+  // NavComponent constructor with cookieService
   constructor(private cookieService: CookieService) {
     // get the cookie value
     this.appUser = {} as AppUser
@@ -35,6 +41,8 @@ export class NavComponent {
     }
   }
 
+
+  // signout function
   signout() {
     // delete the cookie value
     this.cookieService.deleteAll();

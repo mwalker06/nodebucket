@@ -1,8 +1,8 @@
-/**
- * Title: app-routing.module.ts
- * Author: Professor Krasso
- * Date: 8/5/23
- */
+/* Title: app-routing.module
+Author: Megan Walker
+Date: 08-19-2023
+Description: app-routing.module.ts
+Source: Professor Krasso, Angular.io */
 
 // imports statements
 import { NgModule } from '@angular/core';

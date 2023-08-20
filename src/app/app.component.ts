@@ -1,9 +1,9 @@
-/**
- * Title: app.component.ts
- * Author: Professor Krasso
- * Date: 8/5/23
+/* Title: app.component
+Author: Megan Walker
+Date: 08-19-2023
+Description: app.component.ts 
+Source: Professor Krasso, Angular.io
  */
-
 // imports statements
 import { Component } from '@angular/core';
 
@@ -14,5 +14,7 @@ import { Component } from '@angular/core';
   `,
   styles: []
 })
+
+// exports the AppComponent
 export class AppComponent {
 }

@@ -1,8 +1,8 @@
-/**
- * Title: app.module.ts
- * Author: Professor Krasso
- * Date: 8/5/23
- */
+/* Title: app.module
+Author: Megan Walker
+Date: 08-19-2023
+Description: app.module.ts
+Source: Professor Krasso, Angular.io */
 
 // imports statements
 import { NgModule } from '@angular/core';
@@ -16,6 +16,8 @@ import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component
 import { NavComponent } from './layouts/nav/nav.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 
+
+// declarations
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,4 +34,6 @@ import { FooterComponent } from './layouts/footer/footer.component';
   providers: [],
   bootstrap: [AppComponent]
 })
+
+// exports the AppModule
 export class AppModule { }
