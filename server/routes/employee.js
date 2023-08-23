@@ -29,7 +29,7 @@ const taskSchema = {
   additionalProperties: false,
 };
 
-// findEmployeeById function
+// findAllEmployees function - returns all employees
 router.get("/:empId", (req, res, next) => {
   try {
     console.log("empId", req.params.empId);
@@ -43,11 +43,11 @@ router.get("/:empId", (req, res, next) => {
       next(err);
       return;
     }
-
+    // call the mongo helper method
     mongo(async (db) => {
       const employee = await db.collection("employees").findOne({ empId }); // find employee by ID
 
-      // if you can't find an employee in the system, return a 404 error message
+      // error handling for employee not found
       if (!employee) {
         const err = new Error("Unable to find employee with ID " + empId);
         err.status = 404;
@@ -63,7 +63,7 @@ router.get("/:empId", (req, res, next) => {
   }
 });
 
-// findAllTasks function
+// findAllTasks function - returns all tasks for a given employee
 router.get("/:empId/tasks", (req, res, next) => {
   try {
     console.log("findAllTasks API");
@@ -71,6 +71,7 @@ router.get("/:empId/tasks", (req, res, next) => {
     let { empId } = req.params; // get the EmpId
     empId = parseInt(empId, 10); // parse the empId to an int
 
+    // error handling for non-numerical empId
     if (isNaN(empId)) {
       const err = new Error("input must be a number");
       err.status = 400;
@@ -78,7 +79,7 @@ router.get("/:empId/tasks", (req, res, next) => {
       next(err);
       return;
     }
-
+    // call the mongo helper method to find the employee
     mongo(async (db) => {
       const tasks = await db
         .collection("employees")
@@ -86,6 +87,7 @@ router.get("/:empId/tasks", (req, res, next) => {
 
       console.log("tasks", tasks);
 
+      // error handling for employee not found in the database
       if (!tasks) {
         const err = new Error("Unable to find tasks for empId" + empId);
         err.status = 404;
@@ -102,14 +104,14 @@ router.get("/:empId/tasks", (req, res, next) => {
   }
 });
 
-// createTask function
+// createTask function - creates a new task for a given employee
 router.post("/:empId/tasks", (req, res, next) => {
   try {
     console.log("createTask API");
 
     let { empId } = req.params;
     empId = parseInt(empId, 10);
-
+    // error handling for non-numerical empId
     if (isNaN(empId)) {
       const err = new Error("input must be a number");
       err.status = 400;
@@ -118,11 +120,13 @@ router.post("/:empId/tasks", (req, res, next) => {
       return;
     }
 
+    // call the mongo helper method to find the employee
     mongo(async (db) => {
       const employee = await db.collection("employees").findOne({ empId });
 
       console.log("employee", employee);
 
+      // error handling for employee not found in the database
       if (!employee) {
         const err = new Error("Unable to find employee with empId" + empId);
         err.status = 400;
@@ -134,12 +138,12 @@ router.post("/:empId/tasks", (req, res, next) => {
       const { text } = req.body;
       console.log("req.body", req.body);
 
-      // validate the request object
+      // validate the request object against the schema
       const validator = ajv.compile(taskSchema);
       const valid = validator({ text });
 
       console.log("valid", valid);
-
+      // error handling for invalid request object
       if (!valid) {
         const err = new Error("bad Request");
         err.status = 400;
@@ -153,13 +157,13 @@ router.post("/:empId/tasks", (req, res, next) => {
         _id: new ObjectId(),
         text,
       };
-
+      // call the mongo helper method to update the employee's todo array with the new task
       const result = await db
         .collection("employees")
         .updateOne({ empId }, { $push: { todo: task } });
 
       console.log("result", result);
-
+      // error handling for failed update operation
       if (!result.modifiedCount) {
         const err = new Error("Unable to create tasks for empId" + empId);
         err.status = 404;
@@ -167,7 +171,7 @@ router.post("/:empId/tasks", (req, res, next) => {
         next(err);
         return;
       }
-
+      // return the new task id to the client
       res.status(201).send({ id: task._id });
     }, next);
   } catch (err) {
@@ -176,5 +180,5 @@ router.post("/:empId/tasks", (req, res, next) => {
   }
 });
 
-// exports router
+// exports router module
 module.exports = router;
