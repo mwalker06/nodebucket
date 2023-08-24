@@ -4,14 +4,17 @@ Date: 08-19-2023
 Description: task-management.module.ts
 Source: Professor Krasso, Angular.io */
 
-import { NgModule } from '@angular/core';
+// imports 
 import { CommonModule } from '@angular/common';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TaskManagementRoutingModule } from './task-management-routing.module';
 import { TaskManagementComponent } from './task-management.component';
 import { TasksComponent } from './tasks/tasks.component';
 
-// declarations
+// NgModule decorator
 @NgModule({
   declarations: [
     TaskManagementComponent,
@@ -19,9 +22,14 @@ import { TasksComponent } from './tasks/tasks.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule,
     TaskManagementRoutingModule
   ]
 })
 
-// exports the TaskManagementModule
+// exports the TaskManagementModule class
 export class TaskManagementModule { }
+

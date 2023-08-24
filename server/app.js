@@ -1,8 +1,8 @@
-/**
- * Title: app-routing.module.ts
- * Author: Professor Krasso
- * Date: 8/5/23
- */
+/* Title: app
+Author: Megan Walker
+Date: 08-24-2023
+Description: app.js
+Source: Professor Krasso  */
 
 'use strict'
 

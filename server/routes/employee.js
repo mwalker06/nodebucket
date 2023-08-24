@@ -17,24 +17,34 @@ const { restart } = require("nodemon");
 
 const ajv = new Ajv(); // create a new instance of the Ajv class
 
+// category schema to validate a new category
+const categorySchema = {
+  type: "object",
+  properties: {
+    categoryName: { type: "string" },
+    backgroundColor: { type: "string" },
+  },
+  required: ["categoryName", "backgroundColor"],
+  additionalProperties: false,
+};
+
 // define a schema to validate a new task
-// TODO: figure out why this is not preventing additional properties
-// TODO: as of now it is allowing us to send a second property of bar
 const taskSchema = {
   type: "object",
   properties: {
     text: { type: "string" },
+    category: categorySchema,
   },
-  required: ["text"],
+  required: ["text", "category"],
   additionalProperties: false,
 };
 
-// findAllEmployees function - returns all employees
+// findEmployeeById function - returns a single employee document from MongoDB Atlas
 router.get("/:empId", (req, res, next) => {
   try {
     console.log("empId", req.params.empId);
-    let { empId } = req.params; // get the empId from the req.params object
-    empId = parseInt(empId, 10); // try to determine if the empId is a numerical value
+    let { empId } = req.params; // get the empId
+    empId = parseInt(empId, 10); // parse the empId to an int
 
     if (isNaN(empId)) {
       const err = new Error("input must be a number");
@@ -43,11 +53,11 @@ router.get("/:empId", (req, res, next) => {
       next(err);
       return;
     }
-    // call the mongo helper method
-    mongo(async (db) => {
-      const employee = await db.collection("employees").findOne({ empId }); // find employee by ID
 
-      // error handling for employee not found
+    mongo(async (db) => {
+      const employee = await db.collection("employees").findOne({ empId }); // query MongoDB Atlas by empId
+
+      // log the employee object to the console
       if (!employee) {
         const err = new Error("Unable to find employee with ID " + empId);
         err.status = 404;
@@ -68,10 +78,9 @@ router.get("/:empId/tasks", (req, res, next) => {
   try {
     console.log("findAllTasks API");
 
-    let { empId } = req.params; // get the EmpId
-    empId = parseInt(empId, 10); // parse the empId to an int
+    let { empId } = req.params; // get the EmpId from the request object
+    empId = parseInt(empId, 10); // parse the empId to an int value
 
-    // error handling for non-numerical empId
     if (isNaN(empId)) {
       const err = new Error("input must be a number");
       err.status = 400;
@@ -79,7 +88,7 @@ router.get("/:empId/tasks", (req, res, next) => {
       next(err);
       return;
     }
-    // call the mongo helper method to find the employee
+
     mongo(async (db) => {
       const tasks = await db
         .collection("employees")
@@ -87,7 +96,7 @@ router.get("/:empId/tasks", (req, res, next) => {
 
       console.log("tasks", tasks);
 
-      // error handling for employee not found in the database
+      // if the tasks array is empty, return a 404 error
       if (!tasks) {
         const err = new Error("Unable to find tasks for empId" + empId);
         err.status = 404;
@@ -111,7 +120,7 @@ router.post("/:empId/tasks", (req, res, next) => {
 
     let { empId } = req.params;
     empId = parseInt(empId, 10);
-    // error handling for non-numerical empId
+
     if (isNaN(empId)) {
       const err = new Error("input must be a number");
       err.status = 400;
@@ -119,14 +128,12 @@ router.post("/:empId/tasks", (req, res, next) => {
       next(err);
       return;
     }
-
-    // call the mongo helper method to find the employee
+    // call the mongo function
     mongo(async (db) => {
       const employee = await db.collection("employees").findOne({ empId });
 
       console.log("employee", employee);
-
-      // error handling for employee not found in the database
+      // if the employee object is empty, return a 400 error
       if (!employee) {
         const err = new Error("Unable to find employee with empId" + empId);
         err.status = 400;
@@ -135,15 +142,16 @@ router.post("/:empId/tasks", (req, res, next) => {
         return;
       }
 
-      const { text } = req.body;
-      console.log("req.body", req.body);
+      const { task } = req.body;
+      console.log("New task: ", task);
+      console.log("body", req.body);
 
-      // validate the request object against the schema
+      // validate the request object against the task schema
       const validator = ajv.compile(taskSchema);
-      const valid = validator({ text });
+      const valid = validator(task);
 
       console.log("valid", valid);
-      // error handling for invalid request object
+
       if (!valid) {
         const err = new Error("bad Request");
         err.status = 400;
@@ -153,17 +161,20 @@ router.post("/:empId/tasks", (req, res, next) => {
         return;
       }
 
-      const task = {
+      // build the task object to insert into MongoDB atlas (i.e. the new task)
+      const newTask = {
         _id: new ObjectId(),
-        text,
+        text: task.text,
+        category: task.category,
       };
-      // call the mongo helper method to update the employee's todo array with the new task
+
       const result = await db
         .collection("employees")
-        .updateOne({ empId }, { $push: { todo: task } });
+        .updateOne({ empId }, { $push: { todo: newTask } });
 
       console.log("result", result);
-      // error handling for failed update operation
+
+      // if the result object is empty, return a 404 error
       if (!result.modifiedCount) {
         const err = new Error("Unable to create tasks for empId" + empId);
         err.status = 404;
@@ -171,8 +182,8 @@ router.post("/:empId/tasks", (req, res, next) => {
         next(err);
         return;
       }
-      // return the new task id to the client
-      res.status(201).send({ id: task._id });
+
+      res.status(201).send({ id: newTask._id });
     }, next);
   } catch (err) {
     console.log("err", err);
@@ -180,5 +191,5 @@ router.post("/:empId/tasks", (req, res, next) => {
   }
 });
 
-// exports router module
+// exports router as a module
 module.exports = router;
