@@ -87,7 +87,7 @@ Source: Professor Krasso-->
         <div class="col-sm-5 col-md-4 col-lg-3">
             <h4 class="text-center ">ToDo</h4>
             <div class="p-3 border ">
-                <div class="container">
+                <div class="container task-column" cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]" (cdkDropListDropped)="drop($event)">
                     <!--message for no todo tasks-->
                     <div *ngIf="!todo || todo.length === 0">
                         <div class="alert alert-info">
@@ -95,8 +95,8 @@ Source: Professor Krasso-->
                         </div>
                     </div>
                     <!--end message for no todo tasks-->
-                    <div *ngFor="let item of todo" class="mt-2">
-                        <div class="row border ">
+                    <div *ngFor="let item of todo" cdkDrag class="mt-2">
+                        <div class="row border task-hover ">
                             <div class="col-sm-6">
                                 <div class="card-body">
                                     <button *ngIf="item.category.categoryName != 'other'"
@@ -104,10 +104,25 @@ Source: Professor Krasso-->
                                         data-bs-toggle="tooltip" title="{{ item.category.categoryName }}"
                                         style="width: 25%" class="btn">
                                     </button>
-                                    <div class= "hufflepuff-text">
+                                    <div class="hufflepuff-text">
                                         {{ item.text }}
                                     </div>
                                 </div>
+                            </div>
+                            <!--delete button for todo tasks-->
+                            <div class="col-sm-6 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                <div class="card-body float-end">
+                                    <button class="btn" (click)="deleteTask(item._id ??'')">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--mobile only delete button for todo-->
+                            <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grid gap-2 p-2">
+                                <button class="btn btn-secondary" (click)="deleteTask(item._id ??'')">
+                                    <span>delete</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -119,16 +134,16 @@ Source: Professor Krasso-->
         <div class="col-sm-5 col-md-4 col-lg-3">
             <h4 class="text-center ">Done</h4>
             <div class="p-3 border ">
-                <div class="container">
+                <div class="container task-column" cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" (cdkDropListDropped)="drop($event)">
                     <!--message for no done tasks-->
                     <div *ngIf="!done || done.length === 0">
                         <div class="alert alert-info  ">
                             No tasks done yet!
                         </div>
                     </div>
-                    <!--end message for done taska-->
-                    <div *ngFor="let item of done" class="mt-2">
-                        <div class="row border bg-white">
+                    <!--end message for done tasks-->
+                    <div *ngFor="let item of done" cdkDrag class="mt-2">
+                        <div class="row border bg-white task-hover">
                             <div class="col-sm-6">
                                 <div class="card-body">
                                     <button *ngIf="item.category.categoryName != 'other'"
@@ -140,6 +155,21 @@ Source: Professor Krasso-->
                                         {{ item.text }}
                                     </div>
                                 </div>
+                            </div>
+                            <!--delete button for done tasks-->
+                            <div class="col-sm-6 d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                <div class="card-body float-end">
+                                    <button class="btn" (click)="deleteTask(item._id ??'')">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--mobile only delete button for done-->
+                            <div class="col-12 d-sm-none d-md-none d-lg-none d-xl-none d-grid gap-2 p-2">
+                                <button class="btn btn-secondary" (click)="deleteTask(item._id ??'')">
+                                    <span>delete</span>
+                                </button>
                             </div>
                         </div>
                     </div>

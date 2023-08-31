@@ -1,0 +1,13 @@
+/* Title: tasks.component
+Author: Megan Walker
+Date: 08-28-2023
+Description: Tasks component 
+Source: Professor Krasso, Angular.io */
+
+.task-column {
+    min-height: 200px;
+}
+
+.task-hover:hover {
+    cursor: pointer;
+}

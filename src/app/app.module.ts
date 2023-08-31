@@ -24,6 +24,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavComponent } from './layouts/nav/nav.component';
 import { NgModule } from '@angular/core';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { AboutComponent } from './about/about.component';
 
 // NgModule decorator
 @NgModule({
@@ -34,6 +36,8 @@ import { NgModule } from '@angular/core';
     HomeComponent,
     NavComponent,
     ContactComponent,
+    NotFoundComponent,
+    AboutComponent,
 
   ],
   imports: [
