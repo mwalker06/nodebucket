@@ -96,7 +96,7 @@ Source: Professor Krasso-->
                     </div>
                     <!--end message for no todo tasks-->
                     <div *ngFor="let item of todo" cdkDrag class="mt-2">
-                        <div class="row border task-hover ">
+                        <div class="row border bg-hufflepufflt task-hover ">
                             <div class="col-sm-6">
                                 <div class="card-body">
                                     <button *ngIf="item.category.categoryName != 'other'"
@@ -104,7 +104,7 @@ Source: Professor Krasso-->
                                         data-bs-toggle="tooltip" title="{{ item.category.categoryName }}"
                                         style="width: 25%" class="btn">
                                     </button>
-                                    <div class="hufflepuff-text">
+                                    <div class="hufflepuff-textdrk">
                                         {{ item.text }}
                                     </div>
                                 </div>
@@ -143,7 +143,7 @@ Source: Professor Krasso-->
                     </div>
                     <!--end message for done tasks-->
                     <div *ngFor="let item of done" cdkDrag class="mt-2">
-                        <div class="row border bg-white task-hover">
+                        <div class="row border bg-hufflepufflt task-hover">
                             <div class="col-sm-6">
                                 <div class="card-body">
                                     <button *ngIf="item.category.categoryName != 'other'"
@@ -151,7 +151,7 @@ Source: Professor Krasso-->
                                         data-bs-toggle="tooltip" title="{{ item.category.categoryName }}"
                                         style="width: 25%" class="btn">
                                     </button>
-                                    <div>
+                                    <div class ="hufflepuff-textdrk">
                                         {{ item.text }}
                                     </div>
                                 </div>

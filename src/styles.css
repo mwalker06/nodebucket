@@ -31,6 +31,10 @@ ul {
   color: var(--hufflepuff-yellow);
   font-family: Cochin, Georgia, Times, "Times New Roman", serif;
 }
+.bg-hufflepufflt {
+  background-color: var(--hufflepuff-pale-yellow)!important;
+  opacity: 0.8;
+}
 .hufflepuff-textblk strong {
   color: var(--hufflepuff-yellow);
   font-family: Cochin, Georgia, Times, "Times New Roman", serif;
@@ -50,6 +54,8 @@ ul {
 {
   border: 1px solid var(--hufflepuff-black) !important;
   border-width: 2px !important;
+  background-color: var(--hufflepuff-yellow);
+  border-radius: 10px
 }
 
 .hufflepuff-a{
