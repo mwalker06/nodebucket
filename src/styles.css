@@ -18,17 +18,33 @@ Source: Professor Krasso, Angular.io */
 }
 .hufflepuff-welcome {
   color: var(--hufflepuff-yellow);
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
-    2px 2px 0 #000;
-    font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: bold;
 }
-
+ul {
+  list-style: none !important;
+}
 .hufflepuff-body {
   background-color: var(--hufflepuff-ltbrown);
 }
 .hufflepuff-text {
   color: var(--hufflepuff-yellow);
   font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.hufflepuff-textblk strong {
+  color: var(--hufflepuff-yellow);
+  font-family: Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: bold;
+  font-size: larger;
+}
+.hufflepuff-textblk {
+  color: var(--hufflepuff-black);
+}
+.hufflepuff-textdrk {
+  color: var(--hufflepuff-drkbrown);
+}
+.sorting-background {
+  background-color: var(--hufflepuff-ltbrown);
 }
 .border
 {

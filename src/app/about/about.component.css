@@ -5,5 +5,28 @@ Description:''
 Source: Professor Krasso */
 
 .about {
-    background-color: #e9ecef;
+  background-color: white;
+  margin-top: -2%;
+}
+.task-management {
+  text-align: center;
+  margin-bottom: 20px; /* Add some spacing between the title and reviews */
+}
+/* Style to make list items display horizontally */
+.reviews-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+.review-item {
+  flex: 0 0 25%; /* Equal width for all list items */
+  margin-right: 10px; /* Add spacing between reviews */
+}
+/* Fixed height for all cards */
+.card {
+  height: 100%; /* Specify the fixed height you want */
+}
+.team-member-img {
+    max-width: 350px; /* Adjust the max-width as needed */
+    height: auto;
 }

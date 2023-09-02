@@ -3,3 +3,28 @@ Author: Megan Walker
 Date: 08-30-2023
 Description: Not found component
 Source: Professor Krasso */
+
+/* First column (image) */
+.col-md-6.image-column {
+  text-align: left;
+}
+
+/* Second column (text) */
+.col-md-6.text-column {
+  text-align: right;
+}
+
+/* Style for the transparent image */
+.transparent-image {
+  max-width: 100%;
+  height: auto;
+  background: transparent; /* Ensure the image background is transparent */
+}
+
+.error-message {
+  font-size: 24px;
+}
+
+.attribution {
+    display: none;
+}
