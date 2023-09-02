@@ -1,0 +1,365 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "version": "1.0.0",
+    "title": "Nodebucket API",
+    "description": "Documentation for Nodebucket API for managing employees and their tasks"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employees",
+      "description": "API for employees in the company"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/employees/{empId}": {
+      "get": {
+        "tags": ["Employees"],
+        "summary": "Find an employee by ID",
+        "description": "API for returning a single employee by ID.",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "description": "Employee ID",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee found successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "empId": {
+                      "type": "number",
+                      "example": 1009
+                    },
+                    "firstName": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/employees/{empId}/tasks": {
+      "get": {
+        "tags": ["Tasks"],
+        "summary": "Find tasks for an employee",
+        "description": "API for returning tasks for an employee",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "description": "Employee ID",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tasks found successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Tasks"],
+        "summary": "Add a new task for an employee",
+        "description": "API for adding a new task for an employee",
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "description": "Employee ID",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Task to be added",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/taskSchema"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Task added successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks"],
+        "summary": "Update tasks for an employee",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "empId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the employee"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "todo": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "object",
+                          "properties": {
+                            "categoryName": {
+                              "type": "string"
+                            },
+                            "backgroundColor": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "required": ["_id", "text", "category"]
+                    }
+                  },
+                  "done": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "object",
+                          "properties": {
+                            "categoryName": {
+                              "type": "string"
+                            },
+                            "backgroundColor": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "required": ["_id", "text", "category"]
+                    }
+                  }
+                },
+                "required": ["todo", "done"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Task added successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/employees/{empId}/tasks/{taskId}": {
+      "delete": {
+        "tags": ["Tasks"],
+        "summary": "Delete a task for an employee",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "empId",
+            "required": true,
+            "schema": {
+              "type": "number"
+            },
+            "description": "Employee ID"
+          },
+          {
+            "in": "path",
+            "name": "taskId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Task ID"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Content not found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "taskSchema": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "category": {
+                "type": "object",
+                "properties": {
+                  "categoryName": {
+                    "type": "string"
+                  },
+                  "backgroundColor": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": ["task", "category"]
+      },
+      "tasksSchema": {
+        "type": "object",
+        "required": ["todo", "done"],
+        "additionalProperties": false,
+        "properties": {
+          "todo": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "categoryName": {
+                      "type": "string"
+                    },
+                    "backgroundColor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "done": {
+            "type": "array",
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "object",
+                  "properties": {
+                    "categoryName": {
+                      "type": "string"
+                    },
+                    "backgroundColor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,8 +6,6 @@ Source: Professor Krasso */
 
 "use strict";
 
-"use strict";
-
 // imports / requires
 const express = require("express");
 const router = express.Router();
